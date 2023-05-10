@@ -31,3 +31,10 @@ export interface UserType {
 export interface UserData {
   data: UserType;
 }
+
+export interface PostType {
+  userId: any;
+  id: number;
+  title: string;
+  body: string;
+}

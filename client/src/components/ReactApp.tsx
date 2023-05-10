@@ -1,19 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import reactLogo from "../assets/react.svg";
 import viteLogo from "../../public/vite.svg";
-import User from "./User";
-import { UserType } from "./interface";
+import { PostType, UserType } from "./interface";
 import { useEffect, useState } from "react";
 
-const AppContent = () => {
-  const [data, setData] = useState<UserType[]>([]);
-  const [error, setError] = useState<Error>();
+const ReactApp = () => {
+  const postId = 27;
+
+  const [post, setPost] = useState<PostType>();
+  const [user, setUser] = useState<UserType>();
+  const [postError, setPostError] = useState<Error>();
+  const [userError, setUserError] = useState<Error>();
 
   useEffect(() => {
-    const fetchData = async () => {
+    const getPostById = async (postId: number) => {
       try {
         const response = await fetch(
-          "https://jsonplaceholder.typicode.com/users"
+          `https://jsonplaceholder.typicode.com/posts/${postId}`
         );
 
         if (!response.ok) {
@@ -21,47 +24,55 @@ const AppContent = () => {
         }
 
         const jsonData = await response.json();
-
-        setData(jsonData);
+        setPost(jsonData);
       } catch (err) {
         const error = err as Error;
-        setError(error);
+        setPostError(error);
       }
     };
 
-    fetchData();
-  }, []);
+    getPostById(postId);
+  }, [postId]);
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  useEffect(() => {
+    if (post?.userId) {
+      const getUserById = async (userId: number) => {
+        try {
+          const response = await fetch(
+            `https://jsonplaceholder.typicode.com/users/${userId}`
+          );
+          if (!response.ok) {
+            throw new Error("Failed to fetch users");
+          }
+
+          const jsonData = await response.json();
+          setUser(jsonData);
+        } catch (err) {
+          const error = err as Error;
+          setUserError(error);
+        }
+      };
+      getUserById(post?.userId);
+    }
+  }, [post?.userId]);
+
+  if (postError) <div>Error: {postError.message}</div>;
+  if (userError) <div>Error: {userError.message}</div>;
+
+  if (user === undefined) return <>Loading...</>;
 
   return (
     <>
-      {data.length === 0 ? (
-        <>Loading...</>
-      ) : (
-        <>
-          <div>
-            <a href="https://vitejs.dev" target="_blank">
-              <img src={viteLogo} className="logo" alt="Vite logo" />
-            </a>
-            <a href="https://react.dev" target="_blank">
-              <img src={reactLogo} className="logo react" alt="React logo" />
-            </a>
-          </div>
+      <div>
+        <img src={viteLogo} className="logo" alt="Vite logo" />
+        <img src={reactLogo} className="logo react" alt="React logo" />
+      </div>
 
-          <h1>Vite + React</h1>
+      <h1>Vite + React</h1>
 
-          <ul>
-            {data.map((user: UserType) => (
-              <User key={user.id} data={user} />
-            ))}
-          </ul>
-        </>
-      )}
+      <p>{user?.name}</p>
     </>
   );
 };
 
-export default AppContent;
+export default ReactApp;

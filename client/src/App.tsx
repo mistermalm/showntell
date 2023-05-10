@@ -1,7 +1,8 @@
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 import ReactApp from "./components/ReactApp";
-import ReactQuery from "./components/ReactQuery";
+
+// TRPC Client
 
 // React Query Client
 const queryClient = new QueryClient({

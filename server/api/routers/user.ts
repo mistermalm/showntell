@@ -3,7 +3,7 @@ import { createTRPCRouter, publicProcedure } from "../trpc";
 import { UserType } from "../../../client/src/components/interface";
 
 export const userRouter = createTRPCRouter({
-  get: publicProcedure
+  getById: publicProcedure
     .input(
       z.object({
         userId: z.number(),

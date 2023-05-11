@@ -7,7 +7,7 @@ const TRPCApp = () => {
     data: post,
     error: postError,
     isLoading: isLoadingPost,
-  } = trpc.post.get.useQuery({
+  } = trpc.post.getById.useQuery({
     postId,
   });
 
@@ -17,7 +17,7 @@ const TRPCApp = () => {
     data: user,
     error: userError,
     isLoading: isLoadingUser,
-  } = trpc.user.get.useQuery({ userId }, { enabled: !!userId });
+  } = trpc.user.getById.useQuery({ userId }, { enabled: !!userId });
 
   if (postError) return <div>Error: {postError.message}</div>;
   if (userError) return <div>Error: {userError.message}</div>;

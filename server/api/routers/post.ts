@@ -3,7 +3,7 @@ import { createTRPCRouter, publicProcedure } from "../trpc";
 import { PostType } from "../../../client/src/components/interface";
 
 export const postRouter = createTRPCRouter({
-  get: publicProcedure
+  getById: publicProcedure
     .input(
       z.object({
         postId: z.number(),

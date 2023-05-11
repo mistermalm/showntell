@@ -33,7 +33,7 @@ export interface UserData {
 }
 
 export interface PostType {
-  userId: any;
+  userId: number;
   id: number;
   title: string;
   body: string;

@@ -1,11 +1,13 @@
 import "./App.css";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { createTRPCReact, httpBatchLink } from "@trpc/react-query";
+import { type AppRouter } from "../../server";
 import ReactApp from "./components/ReactApp";
+import ReactQueryApp from "./components/ReactQueryApp";
+import TRPCApp from "./components/TRPCApp";
+import { trpc } from "./utils/trpc.ts";
 
-// TRPC Client
-
-// React Query Client
-const queryClient = new QueryClient({
+const reactQueryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
@@ -13,13 +15,38 @@ const queryClient = new QueryClient({
   },
 });
 
+const trpcClient = trpc.createClient({
+  links: [
+    httpBatchLink({
+      url: "http://localhost:2022",
+    }),
+  ],
+});
+
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <div>
       <ReactApp />
-      {/* <ReactQuery /> */}
-    </QueryClientProvider>
+    </div>
   );
 }
+
+// function App() {
+//   return (
+//     <QueryClientProvider client={reactQueryClient}>
+//       <ReactQueryApp />
+//     </QueryClientProvider>
+//   );
+// }
+
+// function App() {
+//   return (
+//     <trpc.Provider client={trpcClient} queryClient={reactQueryClient}>
+//       <QueryClientProvider client={reactQueryClient}>
+//         <TRPCApp />
+//       </QueryClientProvider>
+//     </trpc.Provider>
+//   );
+// }
 
 export default App;

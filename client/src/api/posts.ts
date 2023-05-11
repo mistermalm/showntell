@@ -1,6 +1,6 @@
 import { PostType } from "../components/interface";
 
-export const getPostsById = async (postId: number): Promise<PostType> => {
+export const getPostById = async (postId: number): Promise<PostType> => {
   const response = await fetch(
     `https://jsonplaceholder.typicode.com/posts/${postId}`
   );

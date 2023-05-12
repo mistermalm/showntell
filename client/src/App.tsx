@@ -6,29 +6,29 @@ import ReactQueryApp from "./components/ReactQueryApp";
 import TRPCApp from "./components/TRPCApp";
 import { trpc } from "./utils/trpc";
 
-const reactQueryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-    },
-  },
-});
+// const reactQueryClient = new QueryClient({
+//   defaultOptions: {
+//     queries: {
+//       refetchOnWindowFocus: false,
+//     },
+//   },
+// });
 
-export const trpcClient = trpc.createClient({
-  links: [
-    httpBatchLink({
-      url: "http://localhost:2022",
-    }),
-  ],
-});
+// const trpcClient = trpc.createClient({
+//   links: [
+//     httpBatchLink({
+//       url: "http://localhost:2022",
+//     }),
+//   ],
+// });
 
-// function App() {
-//   return (
-//     <div>
-//       <ReactApp />
-//     </div>
-//   );
-// }
+function App() {
+  return (
+    <div>
+      <ReactApp />
+    </div>
+  );
+}
 
 // function App() {
 //   return (
@@ -38,14 +38,14 @@ export const trpcClient = trpc.createClient({
 //   );
 // }
 
-function App() {
-  return (
-    <trpc.Provider client={trpcClient} queryClient={reactQueryClient}>
-      <QueryClientProvider client={reactQueryClient}>
-        <TRPCApp />
-      </QueryClientProvider>
-    </trpc.Provider>
-  );
-}
+// function App() {
+//   return (
+//     <trpc.Provider client={trpcClient} queryClient={reactQueryClient}>
+//       <QueryClientProvider client={reactQueryClient}>
+//         <TRPCApp />
+//       </QueryClientProvider>
+//     </trpc.Provider>
+//   );
+// }
 
 export default App;

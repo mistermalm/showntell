@@ -1,10 +1,10 @@
 import "./App.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { httpBatchLink } from "@trpc/react-query";
+// import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+// import { httpBatchLink } from "@trpc/react-query";
 import ReactApp from "./components/ReactApp";
-import ReactQueryApp from "./components/ReactQueryApp";
-import TRPCApp from "./components/TRPCApp";
-import { trpc } from "./utils/trpc";
+// import ReactQueryApp from "./components/ReactQueryApp";
+// import TRPCApp from "./components/TRPCApp";
+// import { trpc } from "./utils/trpc";
 
 // const reactQueryClient = new QueryClient({
 //   defaultOptions: {
